@@ -1,5 +1,6 @@
 package jeziel.lacarreradelsiglo.doshipercubos.controlador;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,7 +20,7 @@ public class controlador implements Initializable, ratonListener {
     private Raton raton3;
     private Raton raton4;
     private StringBuilder sb;
-    private ObservableList observableList;
+    private ObservableList<String> lista;
 
     @FXML
     private TextField inicio;
@@ -30,7 +31,7 @@ public class controlador implements Initializable, ratonListener {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        lista = FXCollections.observableArrayList();
     }
 
     @FXML
@@ -43,8 +44,8 @@ public class controlador implements Initializable, ratonListener {
 
 
     @Override
-    public void actualizar(List<Queso> quesoFinal) {
-
+    public void actualizar(List<String> String) {
+        lista.addAll(String);
     }
 
 
