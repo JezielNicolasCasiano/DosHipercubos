@@ -14,8 +14,9 @@ public class Raton implements Runnable{
     private List<Queso> suscesores;
     private StringBuilder sb;
     private List<Queso> quesoFinal;
+    private ratonListener listener;
 
-    public Raton(int nivel, String inicio){
+    public Raton(int nivel, String inicio, ratonListener listener){
         sb = new StringBuilder();
         if (inicio.charAt(nivel) == '1'){
             sb.append(inicio);
@@ -23,6 +24,7 @@ public class Raton implements Runnable{
             this.inicio = sb.toString();
             sb.setLength(0);
             this.nivel = nivel;
+            this.listener = listener;
         }else{
             apply = false;
         }
@@ -77,6 +79,35 @@ public class Raton implements Runnable{
             }
         }
         return contador;
+    }
+
+    //Metodo de un qeusoFinal obtiene los String de cada queso
+    public ArrayList<String>  obtenerRuta(List<Queso> quesoFinal){
+        int j = 0;
+        sb = new StringBuilder();
+        ArrayList<String> anterior = new ArrayList<>();
+        ArrayList<String> temp = new ArrayList<>();
+        for (int i = quesoFinal.size(); i > 0; i--) {
+            Queso actual = quesoFinal.get(j);
+            for (int l = 0; l < 1; l++) {
+                temp.add(actual.getActual());
+                actual = actual.getAnterior();
+                if (!(actual == null)) {
+                    l--;
+                }
+            }
+            sb.append("{");
+            for (int k = temp.size(); k > 0; k--) {
+                sb.append(temp.get(k - 1));
+                sb.append("->");
+            }
+            sb.append("}");
+            anterior.add(sb.toString());
+            sb.setLength(0);
+            temp.clear();
+            j++;
+        }
+        return anterior;
     }
 
     //Getters y setters por si son necesarios
