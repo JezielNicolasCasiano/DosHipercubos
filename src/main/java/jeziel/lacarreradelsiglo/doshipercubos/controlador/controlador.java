@@ -5,10 +5,10 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import jeziel.lacarreradelsiglo.doshipercubos.modelo.*;
-
-import javax.swing.text.html.ListView;
-import java.awt.*;
+import javafx.scene.control.Button;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +37,8 @@ public class controlador implements Initializable, ratonListener {
     public void initialize(URL location, ResourceBundle resources) {
         buffer = new Buffer();
         lista = FXCollections.observableArrayList();
-        lista.addListener((ListChangeListener<String>) cambio ->{
-            while(cambio.next()){
+        rutas.getSelectionModel().selectedItemProperty().addListener((observable, valorAnterior, valorNuevo) ->{
+            if(valorNuevo != null){
 
             }
         });
@@ -64,10 +64,12 @@ public class controlador implements Initializable, ratonListener {
         t4.start();
     }
 
-
     @Override
     public void actualizar(String s) {
         lista.add(s);
     }
 
+    public void mostrarRuta(){
+
+    }
 }
