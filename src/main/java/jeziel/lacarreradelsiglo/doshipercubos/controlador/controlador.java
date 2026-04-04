@@ -1,5 +1,6 @@
 package jeziel.lacarreradelsiglo.doshipercubos.controlador;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -37,6 +38,7 @@ public class controlador implements Initializable, ratonListener {
     public void initialize(URL location, ResourceBundle resources) {
         buffer = new Buffer();
         lista = FXCollections.observableArrayList();
+        rutas.setItems(lista);
         rutas.getSelectionModel().selectedItemProperty().addListener((observable, valorAnterior, valorNuevo) ->{
             if(valorNuevo != null){
 
@@ -66,7 +68,9 @@ public class controlador implements Initializable, ratonListener {
 
     @Override
     public void actualizar(String s) {
-        lista.add(s);
+        Platform.runLater(() -> {
+            lista.add(s);
+        });
     }
 
     public void mostrarRuta(){

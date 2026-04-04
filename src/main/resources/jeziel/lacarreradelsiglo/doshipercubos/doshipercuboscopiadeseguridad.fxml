@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="833.0" prefWidth="1126.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller= "jeziel.lacarreradelsiglo.doshipercubos.controlador.controlador">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="833.0" prefWidth="1126.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jeziel.lacarreradelsiglo.doshipercubos.controlador.controlador">
    <children>
       <BorderPane prefHeight="817.0" prefWidth="1124.0">
          <top>
@@ -40,7 +40,7 @@
                   </Label>
                   <TextField fx:id="inicioRuta" layoutX="616.0" layoutY="41.0" />
                   <TextField fx:id="finalRuta" layoutX="616.0" layoutY="83.0" />
-                  <Button fx:id="comenzarBoton" layoutX="875.0" layoutY="46.0" mnemonicParsing="false" text="Comenzar">
+                  <Button fx:id="comenzarBoton" layoutX="875.0" layoutY="46.0" mnemonicParsing="false" onAction="#clickEmpezar" text="Comenzar">
                      <font>
                         <Font size="24.0" />
                      </font>

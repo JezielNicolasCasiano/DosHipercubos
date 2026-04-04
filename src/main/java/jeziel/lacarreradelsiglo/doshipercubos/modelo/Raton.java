@@ -28,12 +28,14 @@ public class Raton implements Runnable{
             random = new Random();
         }else{
             apply = false;
+            this.buffer = buffer;
         }
     }
 
     @Override
     public void run() {
         if(!apply){
+            buffer.put("Fin");
             return; //El hilo se suicida
         }
         abiertos = new ArrayDeque<>();
@@ -49,6 +51,7 @@ public class Raton implements Runnable{
             buffer.put(rutas.get(indice));
             rutas.remove(indice);
         }
+        buffer.put("Fin");
     }
 
     public void buscar(){
@@ -92,18 +95,20 @@ public class Raton implements Runnable{
     //Metodo de un qeusoFinal obtiene los String de cada queso
     public ArrayList<String>  obtenerRuta(List<Queso> quesoFinal){
         int j = 0;
+        for(int i=quesoFinal.size()-1; i>=0; i--){
+            System.out.printf(String.valueOf(quesoFinal.get(i).getActual()));
+        }
+
         sb = new StringBuilder();
         ArrayList<String> anterior = new ArrayList<>();
         ArrayList<String> temp = new ArrayList<>();
         for (int i = quesoFinal.size(); i > 0; i--) {
             Queso actual = quesoFinal.get(j);
-            for (int l = 0; l < 1; l++) {
+            while (actual != null) {
                 temp.add(actual.getActual());
                 actual = actual.getAnterior();
-                if (!(actual == null)) {
-                    l--;
-                }
             }
+            System.out.printf(String.valueOf(temp));
             sb.append("{");
             for (int k = temp.size(); k > 0; k--) {
                 sb.append(temp.get(k - 1));
@@ -115,6 +120,7 @@ public class Raton implements Runnable{
             temp.clear();
             j++;
         }
+        System.out.printf(String.valueOf(anterior));
         return anterior;
     }
 
