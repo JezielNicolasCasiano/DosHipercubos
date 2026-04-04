@@ -1,11 +1,9 @@
 package jeziel.lacarreradelsiglo.doshipercubos.modelo;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Raton implements Runnable{
+    private BufferInterface buffer;
     private int nivel;
     private boolean apply = true;
     private String inicio;
@@ -15,8 +13,9 @@ public class Raton implements Runnable{
     private StringBuilder sb;
     private List<Queso> quesoFinal;
     private ratonListener listener;
+    private Random random;
 
-    public Raton(int nivel, String inicio, ratonListener listener){
+    public Raton(int nivel, String inicio, ratonListener listener, BufferInterface buffer){
         sb = new StringBuilder();
         if (inicio.charAt(nivel) == '1'){
             sb.append(inicio);
@@ -25,6 +24,8 @@ public class Raton implements Runnable{
             sb.setLength(0);
             this.nivel = nivel;
             this.listener = listener;
+            this.buffer = buffer;
+            random = new Random();
         }else{
             apply = false;
         }
@@ -41,6 +42,13 @@ public class Raton implements Runnable{
         Queso root = new Queso(null, inicio);
         abiertos.push(root);
         buscar();
+        ArrayList<String> rutas = obtenerRuta(quesoFinal);
+        int indice = 0;
+        while (!(rutas.isEmpty())){
+            indice = random.nextInt(0,rutas.size());
+            buffer.put(rutas.get(indice));
+            rutas.remove(indice);
+        }
     }
 
     public void buscar(){

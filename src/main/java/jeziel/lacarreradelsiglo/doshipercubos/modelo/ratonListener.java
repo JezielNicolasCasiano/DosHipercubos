@@ -4,5 +4,5 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ratonListener {
-    public void actualizar(List<String> lista);
+    public void actualizar(String s);
 }

@@ -27,7 +27,7 @@
          <bottom>
             <AnchorPane prefHeight="414.0" prefWidth="1124.0" BorderPane.alignment="CENTER">
                <children>
-                  <ListView fx:id="lista" layoutX="90.0" layoutY="36.0" prefHeight="342.0" prefWidth="327.0" />
+                  <ListView fx:id="rutas" layoutX="90.0" layoutY="36.0" prefHeight="342.0" prefWidth="327.0" />
                   <Label layoutX="538.0" layoutY="36.0" text="Inicio:">
                      <font>
                         <Font size="24.0" />
@@ -38,9 +38,9 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="inicio" layoutX="616.0" layoutY="41.0" />
-                  <TextField fx:id="final1" layoutX="616.0" layoutY="83.0" />
-                  <Button fx:id="comenzar" layoutX="875.0" layoutY="46.0" mnemonicParsing="false" text="Comenzar">
+                  <TextField fx:id="inicioRuta" layoutX="616.0" layoutY="41.0" />
+                  <TextField fx:id="finalRuta" layoutX="616.0" layoutY="83.0" />
+                  <Button fx:id="comenzarBoton" layoutX="875.0" layoutY="46.0" mnemonicParsing="false" text="Comenzar">
                      <font>
                         <Font size="24.0" />
                      </font>
