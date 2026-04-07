@@ -50,7 +50,10 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="671.0" layoutY="198.0" text=" " />
+                  <Label fx:id="rutaActual" layoutX="616.0" layoutY="144.0" prefHeight="35.0" prefWidth="475.0" text=" ">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
                </children></AnchorPane>
          </bottom>
          <center>

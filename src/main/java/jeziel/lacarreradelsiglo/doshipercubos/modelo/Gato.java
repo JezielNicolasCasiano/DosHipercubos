@@ -21,5 +21,6 @@ public class Gato implements Runnable{
                 listener.actualizar(s);
             }
         }
+        listener.actualizarLabelRutaActual();
     }
 }

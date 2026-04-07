@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface ratonListener {
     public void actualizar(String s);
+    public void actualizarLabelRutaActual();
 }

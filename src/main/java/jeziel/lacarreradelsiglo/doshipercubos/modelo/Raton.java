@@ -16,11 +16,13 @@ public class Raton implements Runnable{
     private ratonListener listener;
     private Random random;
     private StringBuilder bs;
+    private String nodoFinal;
 
     public Raton(int nivel, String inicio, String meta, ratonListener listener, BufferInterface buffer ){
         sb = new StringBuilder();
         bs = new StringBuilder();
         this.nodoInicial = inicio;
+        this.nodoFinal = meta;
         this.inicio = Integer.toBinaryString(Integer.parseInt(inicio,2)^Integer.parseInt(meta,2));
         sb.append(this.inicio);
         for(int i=this.inicio.length();i<4;i++){
@@ -131,6 +133,8 @@ public class Raton implements Runnable{
                 sb.append(temp.get(k - 1));
                 sb.append("->");
             }
+            //Agregado de manera temporal en lo que se encutra una mejor solucion para el proble
+            sb.append(this.nodoFinal);
             sb.append("}");
             anterior.add(sb.toString());
             sb.setLength(0);
@@ -143,6 +147,7 @@ public class Raton implements Runnable{
     }
 
     public String moverNodoActual(String cambio, String nodoActual){
+        bs.setLength(0);
         String nodoCambio = Integer.toBinaryString(Integer.parseInt(cambio,2)^Integer.parseInt(nodoActual,2));
         bs.append(nodoCambio);
         for(int i=nodoCambio.length();i<4;i++){
