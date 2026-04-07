@@ -52,10 +52,10 @@ public class controlador implements Initializable, ratonListener {
         Thread g1 = new Thread(gato);
         g1.setDaemon(true);
         g1.start();
-        this.raton1 = new Raton(0,inicioRuta.getText(),this, this.buffer);
-        this.raton2 = new Raton(1,inicioRuta.getText(),this, this.buffer);
-        this.raton3 = new Raton(2,inicioRuta.getText(),this, this.buffer);
-        this.raton4 = new Raton(3,inicioRuta.getText(),this, this.buffer);
+        this.raton1 = new Raton(0,inicioRuta.getText(),finalRuta.getText(),this, this.buffer);
+        this.raton2 = new Raton(1,inicioRuta.getText(),finalRuta.getText(),this, this.buffer);
+        this.raton3 = new Raton(2,inicioRuta.getText(),finalRuta.getText(),this, this.buffer);
+        this.raton4 = new Raton(3,inicioRuta.getText(),finalRuta.getText(),this, this.buffer);
         Thread t1 = new Thread(raton1);
         Thread t2 = new Thread(raton2);
         Thread t3 = new Thread(raton3);

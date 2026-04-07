@@ -7,6 +7,7 @@ public class Raton implements Runnable{
     private int nivel;
     private boolean apply = true;
     private String inicio;
+    private String nodoInicial;
     private Queso actual;
     private Deque<Queso> abiertos;
     private List<Queso> suscesores;
@@ -14,9 +15,19 @@ public class Raton implements Runnable{
     private List<Queso> quesoFinal;
     private ratonListener listener;
     private Random random;
+    private StringBuilder bs;
 
-    public Raton(int nivel, String inicio, ratonListener listener, BufferInterface buffer){
+    public Raton(int nivel, String inicio, String meta, ratonListener listener, BufferInterface buffer ){
         sb = new StringBuilder();
+        bs = new StringBuilder();
+        this.nodoInicial = inicio;
+        this.inicio = Integer.toBinaryString(Integer.parseInt(inicio,2)^Integer.parseInt(meta,2));
+        sb.append(this.inicio);
+        for(int i=this.inicio.length();i<4;i++){
+            sb.insert(0,"0");
+        }
+        inicio = sb.toString();
+        sb.setLength(0);
         if (inicio.charAt(nivel) == '1'){
             sb.append(inicio);
             sb.setCharAt(nivel,'0');
@@ -26,6 +37,7 @@ public class Raton implements Runnable{
             this.listener = listener;
             this.buffer = buffer;
             random = new Random();
+
         }else{
             apply = false;
             this.buffer = buffer;
@@ -41,7 +53,7 @@ public class Raton implements Runnable{
         abiertos = new ArrayDeque<>();
         suscesores = new ArrayList<>();
         quesoFinal = new ArrayList<>();
-        Queso root = new Queso(null, inicio);
+        Queso root = new Queso(null, inicio,nodoInicial);
         abiertos.push(root);
         buscar();
         ArrayList<String> rutas = obtenerRuta(quesoFinal);
@@ -68,14 +80,18 @@ public class Raton implements Runnable{
     }
 
     public void generarSuscesores(Queso actual){
-        for(int i=0; i<actual.getActual().length(); i++){
-            if(actual.getActual().charAt(i) == '1'){
-                sb.append(actual.getActual());
+        for(int i = 0; i<actual.getRutaActual().length(); i++){
+            if(actual.getRutaActual().charAt(i) == '1'){
+                bs.repeat("0", actual.getRutaActual().length());
+                bs.setCharAt(i,'1');
+                sb.append(actual.getRutaActual());
                 sb.setCharAt(i,'0');
-                suscesores.add(new Queso(actual, sb.toString()));
+                suscesores.add(new Queso(actual, sb.toString(), moverNodoActual(bs.toString(),actual.getNodoActual())));
                 sb.setLength(0);
+                bs.setLength(0);
             }
         }
+
         //Vaciar suscesores en abiertos
         for(int i = 0; i < suscesores.size(); i++){
             abiertos.push(suscesores.get(i));
@@ -96,7 +112,7 @@ public class Raton implements Runnable{
     public ArrayList<String>  obtenerRuta(List<Queso> quesoFinal){
         int j = 0;
         for(int i=quesoFinal.size()-1; i>=0; i--){
-            System.out.printf(String.valueOf(quesoFinal.get(i).getActual()));
+            System.out.printf(String.valueOf(quesoFinal.get(i).getRutaActual()));
         }
 
         sb = new StringBuilder();
@@ -105,7 +121,7 @@ public class Raton implements Runnable{
         for (int i = quesoFinal.size(); i > 0; i--) {
             Queso actual = quesoFinal.get(j);
             while (actual != null) {
-                temp.add(actual.getActual());
+                temp.add(actual.getRutaActual());
                 actual = actual.getAnterior();
             }
             System.out.printf(String.valueOf(temp));
@@ -123,6 +139,11 @@ public class Raton implements Runnable{
         System.out.printf(String.valueOf(anterior));
         return anterior;
     }
+
+    public String moverNodoActual(String cambio, String nodoActual){
+        return Integer.toBinaryString(Integer.parseInt(cambio,2)^Integer.parseInt(nodoActual,2));
+    }
+
 
     //Getters y setters por si son necesarios
 
