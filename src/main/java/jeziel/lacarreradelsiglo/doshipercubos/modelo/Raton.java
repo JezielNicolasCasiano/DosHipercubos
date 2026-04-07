@@ -113,18 +113,19 @@ public class Raton implements Runnable{
         int j = 0;
         for(int i=quesoFinal.size()-1; i>=0; i--){
             System.out.printf(String.valueOf(quesoFinal.get(i).getRutaActual()));
+            System.out.println("");
         }
-
-        sb = new StringBuilder();
+        sb.setLength(0);
         ArrayList<String> anterior = new ArrayList<>();
         ArrayList<String> temp = new ArrayList<>();
         for (int i = quesoFinal.size(); i > 0; i--) {
             Queso actual = quesoFinal.get(j);
             while (actual != null) {
-                temp.add(actual.getRutaActual());
+                temp.add(actual.getNodoActual());
                 actual = actual.getAnterior();
             }
             System.out.printf(String.valueOf(temp));
+            System.out.println("");
             sb.append("{");
             for (int k = temp.size(); k > 0; k--) {
                 sb.append(temp.get(k - 1));
@@ -137,11 +138,20 @@ public class Raton implements Runnable{
             j++;
         }
         System.out.printf(String.valueOf(anterior));
+        System.out.println("");
         return anterior;
     }
 
     public String moverNodoActual(String cambio, String nodoActual){
-        return Integer.toBinaryString(Integer.parseInt(cambio,2)^Integer.parseInt(nodoActual,2));
+        String nodoCambio = Integer.toBinaryString(Integer.parseInt(cambio,2)^Integer.parseInt(nodoActual,2));
+        bs.append(nodoCambio);
+        for(int i=nodoCambio.length();i<4;i++){
+            bs.insert(0,"0");
+        }
+        nodoCambio = bs.toString();
+        bs.setLength(0);
+        return nodoCambio;
+
     }
 
 
