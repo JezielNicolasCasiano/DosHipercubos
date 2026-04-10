@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 import jeziel.lacarreradelsiglo.doshipercubos.modelo.*;
 import javafx.scene.control.Button;
 import java.net.URL;
@@ -42,12 +44,13 @@ public class controlador implements Initializable, ratonListener {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         random = new Random();
-        buffer = new Buffer();
+
         lista = FXCollections.observableArrayList();
         rutas.setItems(lista);
         rutas.getSelectionModel().selectedItemProperty().addListener((observable, valorAnterior, valorNuevo) ->{
             if(valorNuevo != null){
-
+                mostrarRuta(valorNuevo);
+                rutaActual.setText(valorNuevo);
             }
         });
     }
@@ -55,6 +58,7 @@ public class controlador implements Initializable, ratonListener {
     @FXML
     public void clickEmpezar(){
         lista.clear();
+        buffer = new Buffer();
         this.gato = new Gato(this.buffer, this);
         Thread g1 = new Thread(gato);
         g1.setDaemon(true);
@@ -90,7 +94,36 @@ public class controlador implements Initializable, ratonListener {
         });
     }
 
-    public void mostrarRuta(){
 
+    public void mostrarRuta(String rutaSeleccionada){
+        restaurarLineas();
+        String rutaLimpia = rutaSeleccionada.replace("{", "").replace("}", "");
+        String[] nodos = rutaLimpia.split("->");
+        for (int i = 0; i < nodos.length - 1; i++) {
+            int num1 = Integer.parseInt(nodos[i], 2);
+            int num2 = Integer.parseInt(nodos[i+1], 2);
+            int menor = Math.min(num1, num2);
+            int mayor = Math.max(num1, num2);
+            String idBuscado = "#linea" + menor + "y" + mayor;
+            Shape linea = (Shape) rutas.getScene().lookup(idBuscado);
+            if (linea != null) {
+                linea.setStroke(Color.RED);
+                linea.setStrokeWidth(3.0);
+            } else {
+                System.out.println("No se encontró  " + idBuscado);
+            }
+        }
     }
+
+    private void restaurarLineas() {
+        if (rutas.getScene() == null) return;
+        for (javafx.scene.Node nodo : rutas.getScene().getRoot().lookupAll("*")) {
+            if (nodo.getId() != null && nodo.getId().startsWith("linea") && nodo instanceof Shape) {
+                Shape forma = (Shape) nodo;
+                forma.setStroke(Color.BLACK);
+                forma.setStrokeWidth(1.0);
+            }
+        }
+    }
+
 }

@@ -1,5 +1,7 @@
 package jeziel.lacarreradelsiglo.doshipercubos.modelo;
 
+import java.util.Objects;
+
 public class Gato implements Runnable{
     private BufferInterface buffer;
     private ratonListener listener;
@@ -15,7 +17,7 @@ public class Gato implements Runnable{
         ratonesCazados = 0;
         while(ratonesCazados < 4){
             String s = buffer.get();
-            if(s =="Fin"){
+            if(Objects.equals(s, "Fin")){
                 ratonesCazados++;
             }else{
                 listener.actualizar(s);
